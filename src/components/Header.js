@@ -22,7 +22,7 @@ const Header = () => {
       </div>
 
       <div className="nav-tabs">
-        <Link to="/general" className="tab"><FaCog /> General</Link>
+        <Link to="/" className="tab"><FaCog /> General</Link>
         <Link to="/integracion-crm" className="tab"><FaLink /> Integración CRM</Link>
         <div className="tab"><FaRobot /> Inteligencia Artificial</div>
         <div className="tab"><FaBolt /> Automatización</div>
