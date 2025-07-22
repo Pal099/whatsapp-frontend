@@ -1,0 +1,28 @@
+:root {
+  --main-bg: #f1f2f6;
+  --card-bg: #ffffff;
+  --primary: #00a884;
+  --text-color: #333;
+  --text-muted: #888;
+  --border-radius: 10px;
+  --shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--main-bg);
+  color: var(--text-color);
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: var(--main-bg);
+}

@@ -1,0 +1,92 @@
+.header-container {
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.header-top {
+  background: linear-gradient(to right, #00c16e, #00a884);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+}
+
+.logo h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.logo p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #00c16e;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 20px;
+  padding: 10px 30px;
+  background-color: #f7f9fb;
+  border-bottom: 1px solid #eee;
+}
+
+.tab {
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  background-color: #e9f6f0;
+}
+
+.tab.active {
+  background-color: #daf5eb;
+  color: #00a884;
+  font-weight: bold;
+}

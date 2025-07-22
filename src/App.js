@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import './styles/App.css';
+import IntegracionCRM from './pages/IntegracionCRM';
+import ConfigPage from './pages/ConfigPage';
+import Header from './components/Header'; // ✅ Importación correcta arriba
 
-function App() {
+const App = () => {
+  const [theme, setTheme] = useState('dark');
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className={`app ${theme}`}>
+
+        <main className="main-content">
+          {/* ✅ Componente Header correcto */}
+          <Header />
+
+          {/* 🔸 Secciones de configuración */}
+          <Routes>
+            <Route path="/" element={<ConfigPage />} />
+              <Route path="/integracion-crm" element={<IntegracionCRM />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;

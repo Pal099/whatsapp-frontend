@@ -1,0 +1,29 @@
+.pipeline-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.columna {
+  flex: 1;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.tarjeta {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.acciones button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  cursor: pointer;
+}

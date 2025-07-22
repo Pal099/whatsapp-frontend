@@ -1,0 +1,55 @@
+.integracion-crm {
+  padding: 40px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.integracion-crm h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.integracion-crm p {
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.btn-conectar {
+  padding: 10px 20px;
+  background-color: #00a884;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-conectar:hover {
+  background-color: #009f76;
+}
+
+.qr-container {
+  text-align: center;
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-conectar {
+  padding: 10px 20px;
+  background-color: #00a884;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 15px;
+}
+
+.btn-conectar:hover {
+  background-color: #009970;
+}
