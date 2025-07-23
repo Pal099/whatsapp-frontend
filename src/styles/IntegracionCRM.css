@@ -53,3 +53,209 @@
 .btn-conectar:hover {
   background-color: #009970;
 }
+.estado-box {
+  text-align: center;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: #fefefe;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+  font-size: 1.2rem;
+}
+
+.estado-box p {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #444;
+}
+
+.loader {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #00aaff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.btn-desconectar {
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 20px 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-desconectar:hover {
+  background-color: #e63737;
+}
+
+.estado-box {
+  text-align: center;
+  margin-top: 50px;
+  padding: 30px;
+  background-color: #ffffff;
+  border: 2px dashed #ccc;
+  border-radius: 16px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.estado-box p {
+  margin-top: 15px;
+  font-weight: 500;
+  color: #333;
+}
+
+.estado-box.desconectado {
+  border-color: #ff5555;
+  background: #fff8f8;
+}
+
+.estado-box.generando {
+  border-color: #ffaa00;
+  background: #fffaf0;
+}
+
+.estado-box.esperando {
+  border-color: #007bff;
+  background: #f0f8ff;
+}
+
+.qr-image {
+  width: 240px;
+  height: 240px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.loader {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  border: 4px solid #ccc;
+  border-top: 4px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.exito-animacion {
+  background: #d4edda;
+  color: #155724;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 400px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  animation: slideDownFade 0.8s ease, fadeOut 1s ease 2s forwards;
+}
+
+@keyframes slideDownFade {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.estado-box {
+  text-align: center;
+  padding: 30px;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin: 20px auto;
+  max-width: 400px;
+}
+
+.qr-image {
+  width: 220px;
+  height: auto;
+  margin-bottom: 15px;
+}
+
+.exito-animacion {
+  background: #d4edda;
+  color: #155724;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 20px auto;
+  max-width: 400px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  animation: slideDownFade 0.8s ease, fadeOut 1s ease 2s forwards;
+}
+
+@keyframes slideDownFade {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

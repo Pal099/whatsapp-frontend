@@ -1,30 +1,23 @@
-import React, { useState } from 'react';
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import './styles/App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import IntegracionCRM from './pages/IntegracionCRM';
 import ConfigPage from './pages/ConfigPage';
-import Header from './components/Header'; // ✅ Importación correcta arriba
 
-const App = () => {
-  const [theme, setTheme] = useState('dark');
-
+function App() {
   return (
-    <Router>
-      <div className={`app ${theme}`}>
-
-        <main className="main-content">
-          {/* ✅ Componente Header correcto */}
-          <Header />
-
-          {/* 🔸 Secciones de configuración */}
-          <Routes>
-            <Route path="/" element={<ConfigPage />} />
-              <Route path="/integracion-crm" element={<IntegracionCRM />} />
-          </Routes>
-        </main>
-      </div>
-    </Router>
+    <div className="app-container">
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" element={<ConfigPage />} />
+          <Route path="/integracion-crm" element={<IntegracionCRM />} />
+        </Routes>
+        <Footer />
+      </Router>
+    </div>
   );
-};
+}
 
 export default App;

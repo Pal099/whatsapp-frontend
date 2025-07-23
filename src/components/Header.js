@@ -11,8 +11,8 @@ const Header = () => {
         <div className="logo">
           <img src="/logo.svg" alt="Logo" />
           <div>
-            <h2>WhatsApp CRM Pro</h2>
-            <p>Configuración y Gestión</p>
+            <h2>Gestión Profesional</h2>
+            <p>Conecte con sus clientes de forma profesional</p>
           </div>
         </div>
         <div className="buttons">
@@ -22,13 +22,10 @@ const Header = () => {
       </div>
 
       <div className="nav-tabs">
-        <Link to="/ConfigPage" className="tab"><FaCog /> General</Link>
-        <Link to="/integracion-crm" className="tab"><FaLink /> Integración CRM</Link>
-        <div className="tab"><FaRobot /> Inteligencia Artificial</div>
-        <div className="tab"><FaBolt /> Automatización</div>
-        <div className="tab"><FaFileAlt /> Plantillas</div>
-        <div className="tab"><FaClock /> Programación</div>
-        <div className="tab"><FaSave /> Res</div>
+        <Link to="/integracion-crm" className="tab"><FaLink />CRM</Link>
+        <Link to="/" className="tab"><FaCog />Configuración</Link>
+        
+        
       </div>
     </div>
   );

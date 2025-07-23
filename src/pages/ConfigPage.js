@@ -8,7 +8,7 @@ const ConfigPage = () => {
 
   return (
     <div className="config-page">
-      <h1>Configuración General</h1>
+      <h1>Vista General</h1>
 
       <section className="section">
         <h2>Interfaz de Usuario</h2>

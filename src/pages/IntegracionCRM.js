@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
 import '../styles/IntegracionCRM.css';
 import '../styles/Pipeline.css';
+import successSound from '../assets/exito_song.mp3';
+import '../components/Footer.css';
 
 const socket = io('https://objects-tiger-beverages-anaheim.trycloudflare.com', {
   transports: ['websocket'],
   secure: true
 });
 
-
-
 const IntegracionCRM = () => {
   const [estado, setEstado] = useState("desconectado");
   const [qr, setQR] = useState(null);
+  const [animacionExito, setAnimacionExito] = useState(false);
+  const audioRef = useRef(null);
   const [mensajes, setMensajes] = useState({
     nuevos: [],
     enProceso: [],
@@ -27,7 +29,14 @@ const IntegracionCRM = () => {
 
     socket.on('estado', (nuevoEstado) => {
       setEstado(nuevoEstado);
-      if (nuevoEstado === 'autenticado') setQR(null);
+      if (nuevoEstado === 'autenticado') {
+        setQR(null);
+        if (audioRef.current) {
+          audioRef.current.play();
+        }
+        setAnimacionExito(true);
+        setTimeout(() => setAnimacionExito(false), 3000);
+      }
     });
 
     socket.on('nuevo_mensaje', (msg) => {
@@ -46,6 +55,11 @@ const IntegracionCRM = () => {
 
   const abrirWhatsappWeb = () => {
     window.open('https://web.whatsapp.com', '_blank');
+  };
+
+  const desconectar = () => {
+    socket.disconnect();
+    setEstado("desconectado");
   };
 
   const moverMensaje = (id, origen, destino) => {
@@ -80,12 +94,20 @@ const IntegracionCRM = () => {
 
   return (
     <div className="integracion-crm">
-      <h1>Integración con WhatsApp Business</h1>
+      <audio ref={audioRef} src={successSound} preload="auto" />
+
+      <h1>Vincula tu dispositivo con WhatsApp Business</h1>
+
+      {animacionExito && (
+        <div className="exito-animacion">
+          ✅ ¡Conexión exitosa!
+        </div>
+      )}
 
       {estado === 'esperando' && qr && (
-        <div className="qr-container">
-          <img src={qr} alt="Código QR" />
-          <p>Escanea este código QR con tu app de WhatsApp Business</p>
+        <div className="estado-box esperando">
+          <img className="qr-image" src={qr} alt="Código QR" />
+          <p>📱 Escanea este código QR con tu app de WhatsApp Business</p>
         </div>
       )}
 
@@ -94,8 +116,8 @@ const IntegracionCRM = () => {
           <p style={{ color: "green", fontWeight: "bold" }}>
             ✅ ¡Dispositivo conectado exitosamente!
           </p>
-          <button className="btn-conectar" onClick={abrirWhatsappWeb}>
-            Abrir WhatsApp Web
+          <button className="btn-desconectar" onClick={desconectar}>
+            🔌 Desconectar dispositivo
           </button>
           <div className="pipeline-container">
             {renderColumna("Nuevo", "nuevos")}
@@ -105,8 +127,18 @@ const IntegracionCRM = () => {
         </>
       )}
 
-      {estado === 'generando' && <p>⏳ Generando código QR...</p>}
-      {estado === 'desconectado' && <p>🔌 No conectado</p>}
+      {estado === 'generando' && (
+        <div className="estado-box generando">
+          <span className="loader"></span>
+          <p>⏳ Generando código QR...</p>
+        </div>
+      )}
+
+      {estado === 'desconectado' && (
+        <div className="estado-box desconectado">
+          <p>🔌 No conectado</p>
+        </div>
+      )}
     </div>
   );
 };
