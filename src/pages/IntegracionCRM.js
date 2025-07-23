@@ -5,10 +5,11 @@ import '../styles/Pipeline.css';
 import successSound from '../assets/exito_song.mp3';
 import '../components/Footer.css';
 
-const socket = io(' https://settled-fall-rather-blessed.trycloudflare.com  ', {
+const socket = io('https://settled-fall-rather-blessed.trycloudflare.com', {
   transports: ['websocket'],
   secure: true
 });
+
 
 const IntegracionCRM = () => {
   const [estado, setEstado] = useState("desconectado");
