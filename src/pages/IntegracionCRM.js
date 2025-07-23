@@ -5,7 +5,7 @@ import '../styles/Pipeline.css';
 import successSound from '../assets/exito_song.mp3';
 import '../components/Footer.css';
 
-const socket = io('http://localhost:3001', {
+const socket = io('https://merry-chocolate-said-shipments.trycloudflare.com ', {
   transports: ['websocket'],
   secure: true
 });
