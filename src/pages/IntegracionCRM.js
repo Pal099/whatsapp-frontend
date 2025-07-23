@@ -14,6 +14,8 @@ const IntegracionCRM = () => {
   const [estado, setEstado] = useState("desconectado");
   const [qr, setQR] = useState(null);
   const [animacionExito, setAnimacionExito] = useState(false);
+  const [mostrarToast, setMostrarToast] = useState(false);
+  const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
   const audioRef = useRef(null);
   const [mensajes, setMensajes] = useState({
     nuevos: [],
@@ -23,7 +25,6 @@ const IntegracionCRM = () => {
 
   useEffect(() => {
     socket.on('qr', (qrData) => {
-      console.log('📥 QR recibido');
       setQR(qrData);
       setEstado("esperando");
     });
@@ -54,10 +55,20 @@ const IntegracionCRM = () => {
     };
   }, []);
 
-  const cerrarSesion = () => {
-    socket.emit('cerrar_sesion'); // Llama al backend para cerrar sesión real
-    setEstado("desconectado");
-    setQR(null);
+  const pedirCerrarSesion = () => {
+    setMostrarConfirmacion(true);
+  };
+
+  const confirmarCerrarSesion = () => {
+    socket.emit('cerrar_sesion');
+    setEstado('desconectado');
+    setMostrarConfirmacion(false);
+    setMostrarToast(true);
+    setTimeout(() => setMostrarToast(false), 3000);
+  };
+
+  const cancelarCerrarSesion = () => {
+    setMostrarConfirmacion(false);
   };
 
   const moverMensaje = (id, origen, destino) => {
@@ -94,14 +105,32 @@ const IntegracionCRM = () => {
     <div className="integracion-crm">
       <audio ref={audioRef} src={successSound} preload="auto" />
 
-      <div className="recuadro-integracion animar-entrada">
-        <h1>Vincula tu dispositivo con WhatsApp Business</h1>
+      {animacionExito && (
+        <div className="exito-animacion">
+          ✅ ¡Conexión exitosa!
+        </div>
+      )}
 
-        {animacionExito && (
-          <div className="exito-animacion">
-            ✅ ¡Conexión exitosa!
+      {mostrarToast && (
+        <div className="toast-mensaje">🔒 Sesión cerrada correctamente</div>
+      )}
+
+      {mostrarConfirmacion && (
+        <div className="modal-confirmacion">
+          <div className="modal-contenido">
+            <p>¿Estás seguro que deseas cerrar la sesión vinculada?</p>
+            <button className="btn-confirmar" onClick={confirmarCerrarSesion}>Sí, cerrar</button>
+            <button className="btn-cancelar" onClick={cancelarCerrarSesion}>Cancelar</button>
           </div>
-        )}
+        </div>
+      )}
+
+      <div
+        className={`recuadro-integracion animar-entrada ${
+          estado === 'autenticado' ? 'estado-verde' : ''
+        } ${estado === 'desconectado' ? 'animar-salida' : ''}`}
+      >
+        <h1>Vincula tu dispositivo con WhatsApp Business</h1>
 
         {estado === 'esperando' && qr && (
           <div className="estado-box esperando">
@@ -115,8 +144,8 @@ const IntegracionCRM = () => {
             <p style={{ color: "green", fontWeight: "bold" }}>
               ✅ ¡Dispositivo conectado exitosamente!
             </p>
-            <button className="btn-desconectar" onClick={cerrarSesion}>
-              🔒 Cerrar sesión de WhatsApp
+            <button className="btn-desconectar" onClick={pedirCerrarSesion}>
+              🔌 Desconectar dispositivo
             </button>
             <div className="pipeline-container">
               {renderColumna("Nuevo", "nuevos")}
