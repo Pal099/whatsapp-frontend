@@ -10,7 +10,6 @@ const socket = io('https://settled-fall-rather-blessed.trycloudflare.com', {
   secure: true
 });
 
-
 const IntegracionCRM = () => {
   const [estado, setEstado] = useState("desconectado");
   const [qr, setQR] = useState(null);
@@ -24,11 +23,11 @@ const IntegracionCRM = () => {
 
   useEffect(() => {
     socket.on('qr', (qrData) => {
+      console.log('📥 QR recibido');
       setQR(qrData);
       setEstado("esperando");
     });
 
-    
     socket.on('estado', (nuevoEstado) => {
       setEstado(nuevoEstado);
       if (nuevoEstado === 'autenticado') {
@@ -39,17 +38,6 @@ const IntegracionCRM = () => {
         setAnimacionExito(true);
         setTimeout(() => setAnimacionExito(false), 3000);
       }
-
-      socket.on('connect', () => console.log('✅ Socket conectado'));
-  socket.on('disconnect', () => console.log('❌ Socket desconectado'));
-  socket.on('connect_error', (err) => console.error('⚠️ Error de conexión de socket:', err));
-
-  // Evento QR
-  socket.on('qr', (qrData) => {
-    console.log('📥 QR recibido:', qrData);
-    setQR(qrData);
-    setEstado('esperando');
-  });
     });
 
     socket.on('nuevo_mensaje', (msg) => {
@@ -66,13 +54,10 @@ const IntegracionCRM = () => {
     };
   }, []);
 
-  const abrirWhatsappWeb = () => {
-    window.open('https://web.whatsapp.com', '_blank');
-  };
-
-  const desconectar = () => {
-    socket.disconnect();
+  const cerrarSesion = () => {
+    socket.emit('cerrar_sesion'); // Llama al backend para cerrar sesión real
     setEstado("desconectado");
+    setQR(null);
   };
 
   const moverMensaje = (id, origen, destino) => {
@@ -109,49 +94,51 @@ const IntegracionCRM = () => {
     <div className="integracion-crm">
       <audio ref={audioRef} src={successSound} preload="auto" />
 
-      <h1>Vincula tu dispositivo con WhatsApp Business</h1>
+      <div className="recuadro-integracion animar-entrada">
+        <h1>Vincula tu dispositivo con WhatsApp Business</h1>
 
-      {animacionExito && (
-        <div className="exito-animacion">
-          ✅ ¡Conexión exitosa!
-        </div>
-      )}
-
-      {estado === 'esperando' && qr && (
-        <div className="estado-box esperando">
-          <img className="qr-image" src={qr} alt="Código QR" />
-          <p>📱 Escanea este código QR con tu app de WhatsApp Business</p>
-        </div>
-      )}
-
-      {estado === 'autenticado' && (
-        <>
-          <p style={{ color: "green", fontWeight: "bold" }}>
-            ✅ ¡Dispositivo conectado exitosamente!
-          </p>
-          <button className="btn-desconectar" onClick={desconectar}>
-            🔌 Desconectar dispositivo
-          </button>
-          <div className="pipeline-container">
-            {renderColumna("Nuevo", "nuevos")}
-            {renderColumna("En Proceso", "enProceso")}
-            {renderColumna("Atendidos", "atendidos")}
+        {animacionExito && (
+          <div className="exito-animacion">
+            ✅ ¡Conexión exitosa!
           </div>
-        </>
-      )}
+        )}
 
-      {estado === 'generando' && (
-        <div className="estado-box generando">
-          <span className="loader"></span>
-          <p>⏳ Generando código QR...</p>
-        </div>
-      )}
+        {estado === 'esperando' && qr && (
+          <div className="estado-box esperando">
+            <img className="qr-image" src={qr} alt="Código QR" />
+            <p>📱 Escanea este código QR con tu app de WhatsApp Business</p>
+          </div>
+        )}
 
-      {estado === 'desconectado' && (
-        <div className="estado-box desconectado">
-          <p>🔌 No conectado</p>
-        </div>
-      )}
+        {estado === 'autenticado' && (
+          <>
+            <p style={{ color: "green", fontWeight: "bold" }}>
+              ✅ ¡Dispositivo conectado exitosamente!
+            </p>
+            <button className="btn-desconectar" onClick={cerrarSesion}>
+              🔒 Cerrar sesión de WhatsApp
+            </button>
+            <div className="pipeline-container">
+              {renderColumna("Nuevo", "nuevos")}
+              {renderColumna("En Proceso", "enProceso")}
+              {renderColumna("Atendidos", "atendidos")}
+            </div>
+          </>
+        )}
+
+        {estado === 'generando' && (
+          <div className="estado-box generando">
+            <span className="loader"></span>
+            <p>⏳ Generando código QR...</p>
+          </div>
+        )}
+
+        {estado === 'desconectado' && (
+          <div className="estado-box desconectado">
+            <p>🔌 No conectado</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
