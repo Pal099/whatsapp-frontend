@@ -37,3 +37,34 @@ body, html, #root {
   flex-direction: column;
   min-height: 100vh;
 }
+/* Animación general al cerrar sesión */
+.fade-out {
+  animation: fadeOutContainer 0.8s ease forwards;
+}
+
+@keyframes fadeOutContainer {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+/* Animación para las tarjetas individuales */
+.fade-out-card {
+  animation: fadeOutCard 0.6s ease forwards;
+}
+
+@keyframes fadeOutCard {
+  from {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}

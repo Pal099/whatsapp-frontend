@@ -14,6 +14,7 @@ const IntegracionCRM = () => {
   const [estado, setEstado] = useState("desconectado");
   const [qr, setQR] = useState(null);
   const [animacionExito, setAnimacionExito] = useState(false);
+  const [animacionCierre, setAnimacionCierre] = useState(false);
   const audioRef = useRef(null);
   const [mensajes, setMensajes] = useState({
     nuevos: [],
@@ -28,14 +29,23 @@ const IntegracionCRM = () => {
     });
 
     socket.on('estado', (nuevoEstado) => {
-      setEstado(nuevoEstado);
       if (nuevoEstado === 'autenticado') {
+        setEstado(nuevoEstado);
         setQR(null);
         if (audioRef.current) {
           audioRef.current.play();
         }
         setAnimacionExito(true);
         setTimeout(() => setAnimacionExito(false), 3000);
+      } else if (nuevoEstado === 'desconectado') {
+        setAnimacionCierre(true);
+        setTimeout(() => {
+          setMensajes({ nuevos: [], enProceso: [], atendidos: [] });
+          setAnimacionCierre(false);
+          setEstado(nuevoEstado);
+        }, 1000);
+      } else {
+        setEstado(nuevoEstado);
       }
     });
 
@@ -54,8 +64,7 @@ const IntegracionCRM = () => {
   }, []);
 
   const desconectar = () => {
-    socket.disconnect();
-    setEstado("desconectado");
+    socket.emit('cerrar_sesion');
   };
 
   const moverMensaje = (id, origen, destino) => {
@@ -68,10 +77,10 @@ const IntegracionCRM = () => {
   };
 
   const renderColumna = (titulo, key) => (
-    <div className="columna" key={key}>
+    <div className={`columna ${animacionCierre ? 'fade-out' : ''}`} key={key}>
       <h3>{titulo}</h3>
       {mensajes[key].map((msg) => (
-        <div className="tarjeta" key={msg.id}>
+        <div className={`tarjeta ${animacionCierre ? 'fade-out-card' : ''}`} key={msg.id}>
           <strong>{msg.nombre}</strong>
           <p>{msg.mensaje}</p>
           <small>{msg.numero}</small>
@@ -90,7 +99,6 @@ const IntegracionCRM = () => {
 
   return (
     <div className="crm-container">
-
       <audio ref={audioRef} src={successSound} preload="auto" />
 
       <div className="crm-header">
