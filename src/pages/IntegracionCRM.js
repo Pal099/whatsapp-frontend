@@ -28,6 +28,7 @@ const IntegracionCRM = () => {
       setEstado("esperando");
     });
 
+    
     socket.on('estado', (nuevoEstado) => {
       setEstado(nuevoEstado);
       if (nuevoEstado === 'autenticado') {
@@ -38,6 +39,17 @@ const IntegracionCRM = () => {
         setAnimacionExito(true);
         setTimeout(() => setAnimacionExito(false), 3000);
       }
+
+      socket.on('connect', () => console.log('✅ Socket conectado'));
+  socket.on('disconnect', () => console.log('❌ Socket desconectado'));
+  socket.on('connect_error', (err) => console.error('⚠️ Error de conexión de socket:', err));
+
+  // Evento QR
+  socket.on('qr', (qrData) => {
+    console.log('📥 QR recibido:', qrData);
+    setQR(qrData);
+    setEstado('esperando');
+  });
     });
 
     socket.on('nuevo_mensaje', (msg) => {
