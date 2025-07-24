@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
 
-const socket = io('https://tu-tunnel.ngrok.io', {
+const socket = io('https://behaviour-cute-tribute-rarely.trycloudflare.com', {
   transports: ['polling', 'websocket'], // clave para compatibilidad
 });
 
