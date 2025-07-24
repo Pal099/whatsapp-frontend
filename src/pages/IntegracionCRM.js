@@ -5,10 +5,8 @@ import '../styles/Pipeline.css';
 import successSound from '../assets/exito_song.mp3';
 import '../components/Footer.css';
 
-const socket = io('https://behaviour-cute-tribute-rarely.trycloudflare.com', {
-  transports: ['websocket'],
-  secure: true
-});
+const socket = io('https://behaviour-cute-tribute-rarely.trycloudflare.com');
+
 
 const IntegracionCRM = () => {
   const [estado, setEstado] = useState("desconectado");
